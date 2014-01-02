@@ -5954,4 +5954,7 @@ td.visible-print {
     display: none !important;
   }
 }
+.btn {
+  min-width: 50px;
+}
 /*# sourceMappingURL=/styles/main.css.map */

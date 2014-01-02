@@ -21,8 +21,9 @@ require.config({
 require(['scripts/app.js'], 
     function(App) {
         console.log('Started');
-        App.blink(1);
-        App.blink(3);
-        App.blink([2, 4, 5, 6]);
+        App.blink([
+        //  C   D   E   F   G   A   B   C
+            72, 74, 76, 77, 79, 81, 83, 84 
+            ]);
     }
 )
