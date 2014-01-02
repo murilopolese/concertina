@@ -22,7 +22,6 @@ require(['scripts/app.js'],
     function(App) {
         console.log('Started');
         App.blink([
-        //  C   D   E   F   G   A   B   C
             72, 74, 76, 77, 79, 81, 83, 84 
             ]);
     }
