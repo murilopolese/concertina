@@ -22,7 +22,10 @@ require(['scripts/app.js'],
     function(App) {
         console.log('Started');
         App.blink([
-            72, 74, 76, 77, 79, 81, 83, 84 
+            // C Major scale
+            60, 62, 64, 65, 67, 69, 71,
+            72, 74, 76, 77, 79, 81, 83, 
+            84, 86, 88, 89, 91, 93, 95
             ]);
     }
 )
