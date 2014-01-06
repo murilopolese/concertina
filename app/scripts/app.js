@@ -37,9 +37,92 @@ define(
             } else {
                 blinkNote(midi, duration);
             }
-        }
+        };
+
+        var generateKeys = function(octaveNumbers) {
+            if(octaveNumbers == undefined) {
+                octaveNumbers = 10;
+            }
+            var n = {};
+            for(var octave = 0; octave < octaveNumbers; octave++) {
+                n['C'+octave] = 0 + (octave * 12);
+                n['C#'+octave] = 1 + (octave * 12);
+                n['D'+octave] = 2 + (octave * 12);
+                n['D#'+octave] = 3 + (octave * 12);
+                n['E'+octave] = 4 + (octave * 12);
+                n['F'+octave] = 5 + (octave * 12);
+                n['F#'+octave] = 6 + (octave * 12);
+                n['G'+octave] = 7 + (octave * 12);
+                n['G#'+octave] = 8 + (octave * 12);
+                n['A'+octave] = 9 + (octave * 12);
+                n['A#'+octave] = 10 + (octave * 12);
+                n['B'+octave] = 11 + (octave * 12);
+            }
+            return n;
+        };
+        var concertinaDiagram = {
+            push: {
+                'leftHand': [
+                    ['D#4', '', ''],
+                    ['F#4', 'C#4', 'F#4'],
+                    ['F4', 'G4', 'A#4'],
+                    ['D4', 'E4', 'D5'],
+                    ['A#3', 'C4', 'B4'],
+                    ['A#2', 'G3', 'A4'],
+                    ['F4', 'C3', 'A2'],
+                    ['D4', 'E4', 'D3'] 
+                ],
+                'rightHand': [
+                    ['F4', '', ''],
+                    ['C5', 'G#4', 'E4'],
+                    ['F#5', 'G4', 'A4'],
+                    ['A5', 'C5', 'G#5'],
+                    ['B5', 'E5', 'A#4'],
+                    ['D6', 'G5', 'D5'],
+                    ['G6', 'C6', 'F5'],
+                    ['F6', 'E6', 'A#5'] ,
+                    ['D#5', 'B4', 'C#6'],
+                    ['', '', 'D#6']
+                ]
+            },
+            pull: {
+                'leftHand': [
+                    ['A#4', '', ''],
+                    ['F#4', 'A3', 'G#4'],
+                    ['G4', 'A4', 'A#4'],
+                    ['D#4', 'F4', 'E5'],
+                    ['C4', 'D4', 'C5'],
+                    ['F3', 'B3', 'G#4'],
+                    ['D#3', 'G2', 'C#4'],
+                    ['C3', 'D2', 'F#4'] 
+                ],
+                'rightHand': [
+                    ['D#4', '', ''],
+                    ['C#6', 'G4', 'F4'],
+                    ['E5', 'A#4', 'A#5'],
+                    ['F#5', 'B4', 'C#5'],
+                    ['G#5', 'D5', 'A4'],
+                    ['C6', 'F5', 'C6'],
+                    ['D#6', 'A5', 'D#5'],
+                    ['F6', 'B5', 'G4'] ,
+                    ['E6', 'D6', 'A5'],
+                    ['', '', 'G6']
+                ]
+            },
+            keys: generateKeys()
+        };
+        var template = _.template(
+            $('#app-template').html(),
+            concertinaDiagram
+        );
+        var render = function() {
+            $('#app').html(template);
+        };
+
         return {
-            blink: blink
-        }
+            blink: blink,
+            keys: generateKeys(),
+            render: render
+        };
     }
-)
+);
