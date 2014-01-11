@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   // configurable paths
   var yeomanConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    heroku: 'heroku'
   };
 
   grunt.initConfig({
@@ -236,6 +236,15 @@ module.exports = function (grunt) {
           ]
         }]
       },
+      heroku: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: '<%= yeoman.app %>',
+          dest: '<%= yeoman.heroku %>',
+          src: ['**']
+        }]
+      },
       server: {
         files: [{
           expand: true,
@@ -303,6 +312,10 @@ module.exports = function (grunt) {
     'copy',
     'rev',
     'usemin'
+  ]);
+
+  grunt.registerTask('heroku', [
+    'copy:heroku'
   ]);
 
   grunt.registerTask('default', [
