@@ -28,12 +28,28 @@ define(
                 }, duration*i);
             })
         };
+        var blinkChord = function(chord, duration) {
+            _.each(chord, function(note, i) {
+                blinkNote(note, duration);
+            });
+        };
+        var blinkChords = function(chords, duration) {
+            _.each(chords, function(chord, i) {
+                setTimeout(function() {
+                    blinkChord(chord, duration);
+                }, duration*i)
+            })
+        };
         var blink = function(midi, duration) {
             if(duration == undefined) {
                 duration = 500;
             }
             if(midi instanceof Array) {
-                blinkNotes(midi, duration);
+                if(midi[0] instanceof Array) {
+                    blinkChords(midi, duration);
+                } else {
+                    blinkNotes(midi, duration);
+                }
             } else {
                 blinkNote(midi, duration);
             }
@@ -112,7 +128,7 @@ define(
             keys: generateKeys()
         };
         var template = _.template(
-            $('#app-template').html(),
+            $('#app-template3').html(),
             concertinaDiagram
         );
         var render = function() {

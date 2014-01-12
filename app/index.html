@@ -19,65 +19,75 @@
 
     <div id="app" class="container"></div>
 
-    <script type="text/template" id="app-template">
+    <script type="text/template" id="app-template3">
       <div class="row">
         <div class="col-xs-12">
             <h1 >Concertina</h1>
         </div>
       </div>
-      <div class="row push-keys">
-        <div class="col-xs-12">
-          <h2>Fechando</h2>
+
+      <div class="row">
+
+        <div class="col-xs-6">
+          <div class="row push-keys">
+            <div class="col-xs-12">
+              <h2>Fechando</h2>
+            </div>
+            <div class="left-hand col-xs-6">
+              <% for(var i = 0; i < push.leftHand.length; i++) { %>
+                <p>
+                <% for(var j = 0; j < push.leftHand[i].length; j++) { %>
+                  <a href="#" class="midi-<%= keys[push.leftHand[i][j]] %> btn btn-default">
+                    <%= push.leftHand[i][j] %>
+                  </a>
+                <% } %>
+                </p>
+              <% } %>
+            </div>
+            <div class="right-hand col-xs-6">
+              <% for(var i = 0; i < push.rightHand.length; i++) { %>
+                <p>
+                <% for(var j = 0; j < push.rightHand[i].length; j++) { %>
+                  <a href="#" class="midi-<%= keys[push.rightHand[i][j]] %> btn btn-default">
+                    <%= push.rightHand[i][j] %>
+                  </a>
+                <% } %>
+                </p>
+              <% } %>
+            </div>
+          </div>
         </div>
-        <div class="left-hand col-xs-6">
-          <% for(var i = 0; i < push.leftHand.length; i++) { %>
-            <p>
-            <% for(var j = 0; j < push.leftHand[i].length; j++) { %>
-              <a href="#" class="midi-<%= keys[push.leftHand[i][j]] %> btn btn-default">
-                <%= push.leftHand[i][j] %>
-              </a>
-            <% } %>
-            </p>
-          <% } %>
+
+        <div class="col-xs-6">
+          <div class="row pull-keys">
+            <div class="col-xs-12">
+              <h2>Abrindo</h2>
+            </div>
+            <div class="left-hand col-xs-6">
+              <% for(var i = 0; i < pull.leftHand.length; i++) { %>
+                <p>
+                <% for(var j = 0; j < pull.leftHand[i].length; j++) { %>
+                  <a href="#" class="midi-<%= keys[pull.leftHand[i][j]] %> btn btn-default">
+                    <%= pull.leftHand[i][j] %>
+                  </a>
+                <% } %>
+                </p>
+              <% } %>
+            </div>
+            <div class="right-hand col-xs-6">
+              <% for(var i = 0; i < pull.rightHand.length; i++) { %>
+                <p>
+                <% for(var j = 0; j < pull.rightHand[i].length; j++) { %>
+                  <a href="#" class="midi-<%= keys[pull.rightHand[i][j]] %> btn btn-default">
+                    <%= pull.rightHand[i][j] %>
+                  </a>
+                <% } %>
+                </p>
+              <% } %>
+            </div>
+          </div>
         </div>
-        <div class="right-hand col-xs-6">
-          <% for(var i = 0; i < push.rightHand.length; i++) { %>
-            <p>
-            <% for(var j = 0; j < push.rightHand[i].length; j++) { %>
-              <a href="#" class="midi-<%= keys[push.rightHand[i][j]] %> btn btn-default">
-                <%= push.rightHand[i][j] %>
-              </a>
-            <% } %>
-            </p>
-          <% } %>
-        </div>
-      </div>
-      <div class="row pull-keys">
-        <div class="col-xs-12">
-          <h2>Abrindo</h2>
-        </div>
-        <div class="left-hand col-xs-6">
-          <% for(var i = 0; i < pull.leftHand.length; i++) { %>
-            <p>
-            <% for(var j = 0; j < pull.leftHand[i].length; j++) { %>
-              <a href="#" class="midi-<%= keys[pull.leftHand[i][j]] %> btn btn-default">
-                <%= pull.leftHand[i][j] %>
-              </a>
-            <% } %>
-            </p>
-          <% } %>
-        </div>
-        <div class="right-hand col-xs-6">
-          <% for(var i = 0; i < pull.rightHand.length; i++) { %>
-            <p>
-            <% for(var j = 0; j < pull.rightHand[i].length; j++) { %>
-              <a href="#" class="midi-<%= keys[pull.rightHand[i][j]] %> btn btn-default">
-                <%= pull.rightHand[i][j] %>
-              </a>
-            <% } %>
-            </p>
-          <% } %>
-        </div>
+
       </div>
     </script>
 
