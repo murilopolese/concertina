@@ -5,6 +5,7 @@ define(
         'backbone'
     ],
     function($, _, Backbone) {
+        var loop = false;
         var onClass = 'btn-info';
         var turnOn = function(selector) {
             $(selector).addClass(onClass);
@@ -15,11 +16,17 @@ define(
         var midiToClass = function(midi) {
             return '.midi-'+midi;
         };
+        var setLoop = function(val) {
+            if(val == undefined) {
+                val = true;
+            }
+            loop = val;
+        }
         var blinkNote = function(midi, duration) {
             turnOn(midiToClass(midi));
             setTimeout(function() {
                 turnOff(midiToClass(midi));
-            }, duration);
+            }, duration-10);
         };
         var blinkNotes = function(midi, duration) {
             _.each(midi, function(note, i) {
@@ -34,22 +41,35 @@ define(
             });
         };
         var blinkChords = function(chords, duration) {
-            _.each(chords, function(chord, i) {
-                setTimeout(function() {
-                    blinkChord(chord, duration);
-                }, duration*i)
-            })
+                _.each(chords, function(chord, i) {
+                    setTimeout(function() {
+                        if(chord instanceof Array) {
+                            blinkChord(chord, duration);
+                        } else {
+                            blinkNote(chord, duration);
+                        }
+                    }, duration*i)
+                });
+                if(loop) {
+                    setInterval(function() {
+                       _.each(chords, function(chord, i) {
+                            setTimeout(function() {
+                                if(chord instanceof Array) {
+                                    blinkChord(chord, duration);
+                                } else {
+                                    blinkNote(chord, duration);
+                                }
+                            }, duration*i)
+                        }) 
+                    }, chords.length*duration);
+                }
         };
         var blink = function(midi, duration) {
             if(duration == undefined) {
                 duration = 500;
             }
             if(midi instanceof Array) {
-                if(midi[0] instanceof Array) {
-                    blinkChords(midi, duration);
-                } else {
-                    blinkNotes(midi, duration);
-                }
+                blinkChords(midi, duration);
             } else {
                 blinkNote(midi, duration);
             }
@@ -76,6 +96,20 @@ define(
             }
             return n;
         };
+
+        var major = function(midi) {
+            return [midi, midi+4, midi+7, midi+12];
+        };
+        var minor = function(midi) {
+            return [midi, midi+3, midi+7, midi+12];
+        };
+        var major7 = function(midi) {
+            return [midi, midi+4, midi+7, midi+10];
+        };
+        var minor7 = function(midi) {
+            return [midi, midi+3, midi+7, midi+10];
+        }
+
         var concertinaDiagram = {
             push: {
                 'leftHand': [
@@ -138,7 +172,12 @@ define(
         return {
             blink: blink,
             keys: generateKeys(),
-            render: render
+            render: render,
+            setLoop: setLoop,
+            major: major,
+            minor: minor,
+            major7: major7,
+            minor7: minor7
         };
     }
 );
